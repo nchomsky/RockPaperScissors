@@ -5,3 +5,5 @@ Paper Beats Rock
 Scissors Beats Paper
 */
 
+//SinglePlayer
+

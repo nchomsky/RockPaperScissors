@@ -1,0 +1,80 @@
+/* Colors: */
+/* Lines #34ace0 */
+/* Choices BG: #60bee7 */
+/* Text: #227093 */
+/* Background: #e5f4fb */
+/* Background-Panel: #d6eef9 */
+
+/**********************************************
+*** GENERAL
+**********************************************/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+body {
+  background-size: cover;
+  background-position: center;
+  font-family: Lato;
+  font-weight: 100;
+  position: relative;
+  height: 100vh;
+  color: #227093;
+  background-color: #e5f4fb;
+}
+
+.wrapper {
+  width: 1000px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #e5f4fb;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.player-1-panel,
+.player-2-panel {
+  width: 50%;
+  float: left;
+  height: 600px;
+  padding: 100px;
+}
+
+h1 {
+  color: #227093;
+}
+
+button {
+  background-color: #60bee7;
+  color: #c7e8f6;
+  border: none;
+  padding: 20px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+/**********************************************
+*** PLAYERS
+**********************************************/
+
+.player-name {
+  font-size: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 300;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
