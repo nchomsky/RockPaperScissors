@@ -19,7 +19,12 @@
       src="https://kit.fontawesome.com/eecbf27fd2.js"
       crossorigin="anonymous"
     ></script>
-    <script src="app.js" charset="utf-8"></script>
+    <!-- setting gameMode to singleplayer -->
+    <script>
+      let gameMode = "singlePlayer";
+    </script>
+    <!-- defer loads app.js after html loads -->
+    <script src="app.js" charset="utf-8" defer></script>
   </head>
   <body>
     <div class="container">
@@ -28,7 +33,7 @@
         <div class="player-1-panel">
           <div class="player-name" id="name-1">You</div>
           <div class="player-choice">
-            <i class="far fa-hand-rock fa-7x" id="player-icon"></i>
+            <i class="far fa-7x" id="player-icon"></i>
           </div>
           <div class="player-choose">
             <h2 class="choice-header">Make a Choice</h2>
@@ -46,7 +51,7 @@
         <div class="player-2-panel">
           <div class="player-name" id="name-2">Opponent</div>
           <div class="opponent-choice">
-            <i class="far fa-hand-rock fa-7x" id="player-icon"></i>
+            <i class="far fa-7x" id="opponent-icon"></i>
           </div>
         </div>
       </div>

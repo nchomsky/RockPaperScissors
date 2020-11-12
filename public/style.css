@@ -84,12 +84,10 @@ button {
   transition: background-color 0.3s, color 0.3s;
 }
 
-button:hover {
+button:hover,
+button:focus {
   background-color: #b9e2f4;
   color: #60bee7;
-}
-
-button:focus {
   outline: none;
 }
 
