@@ -27,7 +27,7 @@
     <script src="app.js" charset="utf-8" defer></script>
   </head>
   <body>
-    <div class="container">
+    <div>
       <h1 class="title">Rock, Paper, Scissors</h1>
       <div class="wrapper clearfix">
         <div class="player-1-panel">
@@ -37,22 +37,31 @@
           </div>
           <div class="player-choose">
             <h2 class="choice-header">Make a Choice</h2>
-            <button class="choices icon">
+            <button class="choices-icon">
               <i class="far fa-hand-rock fa-2x"></i>
             </button>
-            <button class="choices icon">
+            <button class="choices-icon">
               <i class="far fa-hand-paper fa-2x"></i>
             </button>
-            <button class="choices icon">
+            <button class="choices-icon">
               <i class="far fa-hand-scissors fa-2x"></i>
             </button>
           </div>
         </div>
+
         <div class="player-2-panel">
           <div class="player-name" id="name-2">Opponent</div>
           <div class="opponent-choice">
             <i class="far fa-7x" id="opponent-icon"></i>
           </div>
+        </div>
+        <div>
+          <h2 class="game outcome" id="win">You Win</h2>
+          <h2 class="game outcome" id="lose">You Lose</h2>
+        </div>
+        <div class="btn-end">
+          <button class="btn game again">Play Again</button>
+          <button class="btn game menu">Main Menu</button>
         </div>
       </div>
     </div>

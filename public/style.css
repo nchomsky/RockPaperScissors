@@ -40,18 +40,13 @@ body {
   overflow-x: hidden;
 }
 
-.game-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .wrapper {
   width: 50%;
-  position: absolute;
+  position: relative;
+  border-radius: 9px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   background-color: #e5f4fb;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
   overflow: hidden;
@@ -62,7 +57,7 @@ body {
   width: 50%;
   float: left;
   height: 35em;
-  padding: 100px;
+  padding: 50px;
 }
 
 .player-1-panel {
@@ -71,24 +66,6 @@ body {
 
 h1 {
   color: #227093;
-}
-
-button {
-  background-color: #60bee7;
-  color: #c7e8f6;
-  border: none;
-  padding: 20px;
-  border-radius: 50%;
-  margin: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-button:hover,
-button:focus {
-  background-color: #b9e2f4;
-  color: #60bee7;
-  outline: none;
 }
 
 /**********************************************
@@ -120,6 +97,28 @@ button:focus {
   padding: 10px;
 }
 
+/**********************************************
+*** Buttons
+**********************************************/
+
+button {
+  background-color: #60bee7;
+  color: #c7e8f6;
+  border: none;
+  padding: 20px;
+  border-radius: 50%;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover,
+button:focus {
+  background-color: #b9e2f4;
+  color: #60bee7;
+  outline: none;
+}
+
 .btn {
   background-color: #60bee7;
   color: #fff;
@@ -143,6 +142,31 @@ button:focus {
 .btn:focus {
   background-color: #b9e2f4;
   color: #60bee7;
+}
+
+.game {
+  font-size: 1.25rem;
+  display: block;
+  margin: 1em auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.menu {
+  top: 85%;
+}
+
+.again {
+  top: 76%;
+}
+
+.temp {
+  border: 3px solid black;
 }
 
 /**********************************************
@@ -195,7 +219,9 @@ button:focus {
   /* border: 1px solid black; */
   padding: 5px;
   position: relative;
-  top: 67%;
+  margin: 0 auto;
+  top: 65%;
+  font-size: 1em;
 }
 
 .choice-header {
@@ -217,4 +243,13 @@ button:focus {
   font-family: lato;
   font-weight: 600;
   font-size: 400%;
+}
+
+/**********************************************
+*** Outcome
+**********************************************/
+
+.outcome {
+  top: 65%;
+  font-size: 2rem;
 }
