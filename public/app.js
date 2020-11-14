@@ -6,18 +6,26 @@ Scissors Beats Paper
 A tie means players should choose again until someone wins
 */
 
-//initializing variables
+//selecting elements
 const computerIcon = document.getElementById('opponent-icon');
 const playerIcon = document.getElementById('player-icon');
+const winner = document.getElementById('win');
+const loser = document.getElementById('lose');
+const optionButtons = document.querySelector('.btn-end');
+
 // Not assigning const to these variables because they change
 let computerChoice = "";
-let playerChoice = "rock";
-
-//Add event listener for onClick on button
+let playerChoice = "";
 
 const hideChoices = () => {
     document.querySelector(".player-choice").style.visibility = 'hidden';
     document.querySelector(".opponent-choice").style.visibility = 'hidden';
+}
+
+const hideElements = () => {
+    winner.classList.toggle("hidden");
+    loser.classList.toggle("hidden");
+    optionButtons.classList.toggle("hidden");
 }
 
 // Basic logic for Game Rules right now
@@ -44,6 +52,7 @@ if (gameMode === "singlePlayer") {
 //SinglePlayer
 function startSingleplayer() {
     hideChoices();
+    hideElements();
     generateComputerChoice();
     console.log("Computer: " + computerChoice);
     determineWinner();
