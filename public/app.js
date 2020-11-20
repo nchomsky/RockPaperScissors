@@ -13,7 +13,7 @@ const winner = document.getElementById('win');
 const loser = document.getElementById('lose');
 const tie = document.getElementById('tie');
 const optionButtons = document.querySelector('.btn-end');
-const choiceIcons = document.querySelector('.player-choose');
+const makeChoice = document.querySelector('.player-choose');
 
 // Not assigning const to these variables because they change
 let computerChoice = "";
@@ -29,21 +29,33 @@ const hideElements = () => {
     winner.classList.toggle("hidden");
     loser.classList.toggle("hidden");
     tie.classList.toggle("hidden");
+    toggleButtons();
+}
+
+//toggles end of game option buttons (Play again and Main Menu)
+const toggleButtons = () => {
     optionButtons.classList.toggle("hidden");
 }
 
-const revealButtons = () => {
-    optionButtons.classList.toggle("hidden");
+//function to toggle player's options
+const toggleOptions = () => {
+    makeChoice.classList.toggle("hidden");
 }
 
-//function to hide players options
-const hideOptions = () => {
-    choiceIcons.classList.toggle("hidden");
-}
-
-//need to add eventlistener for onClick event of the choices and buttons
-const makeChoice = () => {
-
+function playerMakeChoice(choice) {
+    console.log("click");
+    if (choice === "rock") {
+        playerChoice = "rock";
+    } else if (choice === "paper") {
+        playerChoice = "paper";
+    } else {
+        playerChoice = "scissors";
+    }
+    //remove the option to make another choice
+    toggleOptions();
+    playerIcon.classList.add(`fa-hand-${playerChoice}`)
+    document.querySelector(".player-choice").style.visibility = '';
+    console.log(playerChoice);
 }
 
 // Basic logic for Game Rules right now
@@ -60,6 +72,8 @@ function determineWinner() {
         loser.classList.toggle("hidden");
         console.log("Player 2 wins");
     }
+    console.log(playerChoice);
+    console.log(computerChoice);
 }
 
 //Select Gamemode
@@ -69,14 +83,18 @@ if (gameMode === "singlePlayer") {
     startMultiplayer();
 }
 
+
 //SinglePlayer
 function startSingleplayer() {
     hideChoices();
     hideElements();
+    resetDefaults();
+    playSinglePlayer();
+}
+
+function playSinglePlayer() {
     generateComputerChoice();
-    console.log("Computer: " + computerChoice);
     determineWinner();
-    revealButtons();
 }
 
 function generateComputerChoice() {
@@ -96,11 +114,15 @@ function generateComputerChoice() {
         default:
             console.log("Not a valid number")
     }
-    computerIcon.classList.add(`fa-hand-${computerChoice}`)
+    computerIcon.classList.add(`fa-hand-${computerChoice}`);
     document.querySelector(".opponent-choice").style.visibility = '';
 }
 
-function choiceDOM() {
+function resetDefaults() {
+    playerIcon.classList.remove(`fa-hand-${playerChoice}`);
+    computerIcon.classList.remove(`fa-hand-${computerChoice}`);
+    computerChoice = "";
+    playerChoice = "";
 }
 
 //Multiplayer
