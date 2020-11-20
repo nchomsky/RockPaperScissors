@@ -37,13 +37,13 @@
           </div>
           <div class="player-choose">
             <h2 class="choice-header">Make a Choice</h2>
-            <button class="choices-icon">
+            <button class="choices-icon" onclick="playerMakeChoice('rock')">
               <i class="far fa-hand-rock fa-2x"></i>
             </button>
-            <button class="choices-icon">
+            <button class="choices-icon" onclick="playerMakeChoice('paper')">
               <i class="far fa-hand-paper fa-2x"></i>
             </button>
-            <button class="choices-icon">
+            <button class="choices-icon" onclick="playerMakeChoice('scissors')">
               <i class="far fa-hand-scissors fa-2x"></i>
             </button>
           </div>
@@ -58,6 +58,7 @@
         <div>
           <h2 class="game outcome" id="win">You Win</h2>
           <h2 class="game outcome" id="lose">You Lose</h2>
+          <h2 class="game outcome" id="tie">It's a Tie</h2>
         </div>
         <div class="btn-end">
           <button class="btn game again">Play Again</button>
