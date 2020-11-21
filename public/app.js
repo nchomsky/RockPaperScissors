@@ -6,6 +6,9 @@ Scissors Beats Paper
 A tie means players should choose again until someone wins
 */
 
+// Connecting socket.io
+const socket = io();
+
 //selecting elements
 const computerIcon = document.getElementById('opponent-icon');
 const opponentIconFull = document.querySelector(".opponent-choice");
@@ -28,7 +31,7 @@ let playerChoice = "";
 //-------------Event Listeners-------------\\
 playAgain.addEventListener('click', startSingleplayer);
 mainMenu.addEventListener('click', () => {
-    window.location = "/public";
+    window.location = "/";
 });
 
 

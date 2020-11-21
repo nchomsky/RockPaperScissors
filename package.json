@@ -1,0 +1,28 @@
+{
+  "name": "RockPaperScissors",
+  "version": "1.0.0",
+  "description": "Multiplayer Rock, Paper, Scissors Game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nchomsky/RockPaperScissors.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nchomsky/RockPaperScissors/issues"
+  },
+  "homepage": "https://github.com/nchomsky/RockPaperScissors#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
