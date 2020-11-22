@@ -6,8 +6,7 @@ Scissors Beats Paper
 A tie means players should choose again until someone wins
 */
 
-// Connecting socket.io
-const socket = io();
+// const { info } = require("console");
 
 //selecting elements
 const computerIcon = document.getElementById('opponent-icon');
@@ -27,6 +26,10 @@ const possibleOutcomes = [winner, loser, tie];
 // Not assigning const to these variables because they change
 let computerChoice = "";
 let playerChoice = "";
+let playerNum = 0;
+let ready = false;
+let opponentReady = false;
+let choiceMade = false;
 
 //-------------Event Listeners-------------\\
 playAgain.addEventListener('click', startSingleplayer);
@@ -112,6 +115,7 @@ function playerMakeChoice(choice) {
     } else {
         playerChoice = "scissors";
     }
+    choiceMade = true;
     //remove the option to make another choice
     toggleOptions();
     playerIcon.classList.add(`fa-hand-${playerChoice}`)
@@ -149,5 +153,56 @@ function resetDefaults() {
 
 //Multiplayer
 function startMultiplayer() {
-    hideChoices();
+    toggleOutcome();
+    toggleOptions();
+    hideElements();
+
+    //-------------Socket.io Setup-------------\\
+
+    // Connecting socket.io
+    const socket = io();
+
+    //Get player number
+    socket.on('player-number', num => {
+        if (num === -1) {
+            // infoDisplay.innerHTML = "Sorry, the server is full";
+        } else {
+            playerNum = parseInt(num);
+            if (playerNum === 1) {
+                currentPlayer = "opponent";
+            }
+            console.log(playerNum);
+
+            //Get other player status
+            socket.emit('check-players');
+        }
+    })
+    //A player connected or disconnected
+    socket.on('player-connection', (num) => {
+        console.log(`Player number ${num} has connected or disconnected`);
+        playerConnectedOrDisconnected(num);
+    })
+
+    function playerConnectedOrDisconnected(num) {
+        let player = `.p${parseInt(num) + 1}`;
+        document.querySelector(`${player} .connected span`).classList.toggle('green');
+        if (parseInt(num) === playerNum) {
+            // document.querySelector(`${player} .connected span`).classList.toggle('green');
+        }
+        console.log(`player: ${player}`);
+    }
+
+    //Check player status
+    socket.on('check-players', players => {
+        players.forEach((p, i) => {
+            if (p.connected) {
+                playerConnectedOrDisconnected(i);
+            }
+        })
+    })
+
+}
+
+function playMultiplayerGame() {
+    toggleOptions();
 }

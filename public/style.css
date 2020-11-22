@@ -253,3 +253,46 @@ button:focus {
   top: 65%;
   font-size: 2rem;
 }
+
+/**********************************************
+*** Multiplayer
+**********************************************/
+
+.connected span {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 5px;
+  background: red;
+}
+
+span.green {
+  background: green;
+}
+
+.mp-update-p1 {
+  text-align: center;
+  position: fixed;
+  left: 25%;
+  transform: translateX(-50%);
+  line-height: 175px;
+  top: 35%;
+  display: inline-block;
+}
+
+.wait-connect {
+  top: 35%;
+}
+
+.locked-choice {
+  transform: translateY(-100%);
+}
+
+.mp-update-p2 {
+  text-align: center;
+  position: absolute;
+  top: 35%;
+  right: 25%;
+  transform: translateX(+50%);
+  line-height: 175px;
+}
