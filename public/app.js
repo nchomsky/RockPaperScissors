@@ -186,11 +186,19 @@ function startMultiplayer() {
     function playerConnectedOrDisconnected(num) {
         let player = `.p${parseInt(num) + 1}`;
         document.querySelector(`${player} .connected span`).classList.toggle('green');
-        if (parseInt(num) === playerNum) {
-            // document.querySelector(`${player} .connected span`).classList.toggle('green');
-        }
+        document.querySelector(`${player} .wait-connect`).classList.toggle('hidden');
         console.log(`player: ${player}`);
     }
+
+    //Choice click made (if choice made, player is ready to start multiplayer game)
+    makeChoice.addEventListener('click', (e) => {
+        const isButton = e.target.nodeName === 'BUTTON';
+        if (!isButton) {
+            return;
+        }
+
+        playMultiplayerGame(socket, e.target.id);
+    });
 
     //Check player status
     socket.on('check-players', players => {
@@ -203,6 +211,16 @@ function startMultiplayer() {
 
 }
 
-function playMultiplayerGame() {
+function playMultiplayerGame(socket, choice) {
     toggleOptions();
+    if (!ready) {
+        socket.emit('player-ready')
+        ready = true;
+        playerReady(playerNum);
+    }
+}
+
+function playerReady(num) {
+    let player = `.p${parseInt(num) + 1}`;
+    document.querySelector(`${player} .player-choose`).classList.toggle('hidden');
 }
