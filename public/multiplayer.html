@@ -32,40 +32,16 @@
     <div>
       <h1 class="title">Rock, Paper, Scissors</h1>
       <div class="wrapper clearfix">
-        <div class="player-1-panel player p1">
+        <div class="player-1-panel player p1 p1-panel">
           <div class="player-name connected" id="name-1">
             Player 1 <span></span>
           </div>
           <div class="player-choice">
             <i class="far fa-7x" id="player-icon"></i>
           </div>
-          <div class="player-choose">
-            <h2 class="choice-header">Make a Choice</h2>
-            <button
-              class="choices-icon"
-              id="rock"
-              onclick="playerMakeChoice('rock')"
-            >
-              <i class="far fa-hand-rock fa-2x"></i>
-            </button>
-            <button
-              class="choices-icon"
-              id="paper"
-              onclick="playerMakeChoice('paper')"
-            >
-              <i class="far fa-hand-paper fa-2x"></i>
-            </button>
-            <button
-              class="choices-icon"
-              id="scissors"
-              onclick="playerMakeChoice('scissors')"
-            >
-              <i class="far fa-hand-scissors fa-2x"></i>
-            </button>
-          </div>
         </div>
 
-        <div class="player-2-panel player p2">
+        <div class="player-2-panel player p2 p2-panel">
           <div class="player-name connected" id="name-2">
             Player 2<span></span>
           </div>
@@ -91,6 +67,30 @@
           <h1 class="wait-connect">Waiting for Opponent...</h1>
           <h1 class="wait-choice hidden">Waiting...</h1>
           <h1 class="locked-choice hidden">Locked in</h1>
+        </div>
+        <div class="mp player-choose p1-player-choose hidden">
+          <h2 class="choice-header">Make a Choice</h2>
+          <button class="choices-icon" id="rock">
+            <i class="far fa-hand-rock fa-2x"></i>
+          </button>
+          <button class="choices-icon" id="paper">
+            <i class="far fa-hand-paper fa-2x"></i>
+          </button>
+          <button class="choices-icon" id="scissors">
+            <i class="far fa-hand-scissors fa-2x"></i>
+          </button>
+        </div>
+        <div class="mp player-choose p2-player-choose hidden">
+          <h2 class="choice-header">Make a Choice</h2>
+          <button class="choices-icon" id="rock">
+            <i class="far fa-hand-rock fa-2x"></i>
+          </button>
+          <button class="choices-icon" id="paper">
+            <i class="far fa-hand-paper fa-2x"></i>
+          </button>
+          <button class="choices-icon" id="scissors">
+            <i class="far fa-hand-scissors fa-2x"></i>
+          </button>
         </div>
       </div>
     </div>

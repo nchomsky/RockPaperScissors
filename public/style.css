@@ -60,7 +60,7 @@ body {
   padding: 50px;
 }
 
-.player-1-panel {
+.active {
   background-color: #d6eef962;
 }
 
@@ -110,6 +110,10 @@ button {
   margin: 10px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+}
+
+button > * {
+  pointer-events: none;
 }
 
 button:hover,
@@ -222,6 +226,17 @@ button:focus {
   margin: 0 auto;
   top: 65%;
   font-size: 1em;
+}
+
+.mp.player-choose {
+  text-align: center;
+  padding: 5px;
+  position: absolute;
+  margin: 0 auto;
+  top: 89%;
+  left: 50%;
+  font-size: 1em;
+  transform: translate(-50%, -50%);
 }
 
 .choice-header {

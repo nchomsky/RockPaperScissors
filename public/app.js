@@ -153,8 +153,8 @@ function resetDefaults() {
 
 //Multiplayer
 function startMultiplayer() {
+    // toggleOptions();
     toggleOutcome();
-    toggleOptions();
     hideElements();
 
     //-------------Socket.io Setup-------------\\
@@ -187,17 +187,45 @@ function startMultiplayer() {
         let player = `.p${parseInt(num) + 1}`;
         document.querySelector(`${player} .connected span`).classList.toggle('green');
         document.querySelector(`${player} .wait-connect`).classList.toggle('hidden');
+
+
+        if (parseInt(num) === playerNum) {
+            document.querySelector(`${player}-panel`).classList.toggle('active');
+            document.querySelector(`${player}-player-choose`).classList.toggle('hidden');
+
+        }
+
         console.log(`player: ${player}`);
     }
 
-    //Choice click made (if choice made, player is ready to start multiplayer game)
+    //Choice click made (if choice made, player is ready to start multiplayer game and locked in!)
     makeChoice.addEventListener('click', (e) => {
+        console.log('click');
         const isButton = e.target.nodeName === 'BUTTON';
         if (!isButton) {
             return;
         }
-
         playMultiplayerGame(socket, e.target.id);
+
+    });
+
+    document.querySelector('.p2-player-choose').addEventListener('click', (e) => {
+        console.log('click');
+        const isButton = e.target.nodeName === 'BUTTON';
+        if (!isButton) {
+            return;
+        }
+        playMultiplayerGame(socket, e.target.id);
+
+    });
+
+    //Notify opponent that your ready
+    socket.on('opponent-ready', num => {
+        opponentReady = true;
+        playerReady(num);
+        if (ready) {
+            playMultiplayerGame(socket)
+        }
     });
 
     //Check player status
@@ -206,13 +234,19 @@ function startMultiplayer() {
             if (p.connected) {
                 playerConnectedOrDisconnected(i);
             }
+            if (p.ready) {
+                playerReady(i);
+                if (i !== playerNum) {
+                    opponentReady = true;
+                }
+            }
         })
     })
 
 }
 
 function playMultiplayerGame(socket, choice) {
-    toggleOptions();
+    // toggleOptions();
     if (!ready) {
         socket.emit('player-ready')
         ready = true;
@@ -222,5 +256,9 @@ function playMultiplayerGame(socket, choice) {
 
 function playerReady(num) {
     let player = `.p${parseInt(num) + 1}`;
-    document.querySelector(`${player} .player-choose`).classList.toggle('hidden');
+    if (parseInt(num) === playerNum) {
+        document.querySelector(`${player}-player-choose`).classList.toggle('hidden');
+    }
+    document.querySelector(`${player} .locked-choice`).classList.toggle('hidden');
+
 }
