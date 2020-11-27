@@ -209,6 +209,7 @@ function startMultiplayer() {
 
     });
 
+    //setup Event listener for 2nd player's choice
     document.querySelector('.p2-player-choose').addEventListener('click', (e) => {
         console.log('click');
         const isButton = e.target.nodeName === 'BUTTON';
@@ -227,6 +228,11 @@ function startMultiplayer() {
             playMultiplayerGame(socket)
         }
     });
+
+    //Choice received
+    // socket.on('choice-received', id => {
+
+    // })
 
     //Check player status
     socket.on('check-players', players => {

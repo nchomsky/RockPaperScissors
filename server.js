@@ -68,6 +68,14 @@ io.on('connection', (socket) => {
         socket.emit('check-players', players);
     })
 
+    //choice received
+    socket.on('choice-received', id => {
+        console.log(`Choice received from ${playerIndex}`, id);
+
+        //Emit choice to other player
+        socket.broadcast.emit('choice-received', id);
+    });
+
     // Timeout connection (5 min limit until timeout)
     setTimeout(() => {
         connections[playerIndex] = null
