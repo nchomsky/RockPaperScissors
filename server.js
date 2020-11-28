@@ -64,8 +64,8 @@ io.on('connection', (socket) => {
     socket.on('check-players', () => {
         const players = [];
         for (const i in connections) {
-            connections[i] === null ? players.push({ connected: false, ready: false, choice: "" }) :
-                players.push({ connected: true, ready: connections[i], choice: "" });
+            connections[i] === null ? players.push({ connected: false, ready: false }) :
+                players.push({ connected: true, ready: connections[i] });
         }
         socket.emit('check-players', players);
 
@@ -77,6 +77,30 @@ io.on('connection', (socket) => {
 
         //Emit choice to other player
         socket.broadcast.emit('choice-received', choice);
+    });
+
+    //Receive both choices from players and determine winner
+    socket.on('determine-winner', (playerChoice1, playerChoice2) => {
+        console.log(`server: p1: ${playerChoice1} p2: ${playerChoice2}`);
+        let winner = "";
+        let tie = false;
+        //if playerChoices aren't equal figure out who won... otherwise it's a tie
+        if (playerChoice1 !== playerChoice2) {
+            if (playerChoice1 === "rock" && playerChoice2 === "scissors" ||
+                playerChoice1 === "scissors" && playerChoice2 === "paper" ||
+                playerChoice1 === "paper" && playerChoice2 === "rock") {
+                winner = "player1";
+                console.log(winner);
+            } else {
+                winner = "player2";
+                console.log(winner);
+            }
+        } else {
+            tie = true;
+            console.log('its a tie');
+        }
+        //emitting the winner (or if it is a tie) to all clients
+        io.emit('determine-winner', winner, tie);
     });
 
     // Timeout connection (5 min limit until timeout)
