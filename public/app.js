@@ -9,7 +9,7 @@ A tie means players should choose again until someone wins
 // const { info } = require("console");
 
 //selecting elements
-const computerIcon = document.getElementById('opponent-icon');
+const opponentIcon = document.getElementById('opponent-icon');
 const opponentIconFull = document.querySelector(".opponent-choice");
 const playerIcon = document.getElementById('player-icon');
 const playerIconFull = document.querySelector(".player-choice");
@@ -24,15 +24,24 @@ const makeChoice = document.querySelector('.player-choose');
 const possibleOutcomes = [winner, loser, tie];
 
 // Not assigning const to these variables because they change
-let computerChoice = "";
+let opponentChoice = "";
 let playerChoice = "";
 let playerNum = 0;
 let ready = false;
 let opponentReady = false;
-let choiceMade = false;
+
+//multiplayer variables
+let playerChoice1 = "";
+let playerChoice2 = "";
 
 //-------------Event Listeners-------------\\
-playAgain.addEventListener('click', startSingleplayer);
+playAgain.addEventListener('click', () => {
+    if (gameMode === 'singlePlayer') {
+        startSingleplayer();
+    } else if (gameMode === 'multiPlayer') {
+        startMultiplayer();
+    }
+});
 mainMenu.addEventListener('click', () => {
     window.location = "/";
 });
@@ -92,18 +101,18 @@ function generateComputerChoice() {
 
     switch (number) {
         case 1:
-            computerChoice = "rock";
+            opponentChoice = "rock";
             break;
         case 2:
-            computerChoice = "paper";
+            opponentChoice = "paper";
             break;
         case 3:
-            computerChoice = "scissors";
+            opponentChoice = "scissors";
             break;
         default:
             console.log("Not a valid number")
     }
-    computerIcon.classList.add(`fa-hand-${computerChoice}`);
+    opponentIcon.classList.add(`fa-hand-${opponentChoice}`);
 
 }
 
@@ -115,23 +124,26 @@ function playerMakeChoice(choice) {
     } else {
         playerChoice = "scissors";
     }
-    choiceMade = true;
     //remove the option to make another choice
     toggleOptions();
     playerIcon.classList.add(`fa-hand-${playerChoice}`)
     toggleOutcome();
-    determineWinner();
+    determineWinner(playerChoice, opponentChoice);
     toggleButtons();
 }
 
-// Logic for SinglePlayer Winner
-function determineWinner() {
-    if (playerChoice === "rock" && computerChoice === "scissors" ||
-        playerChoice === "scissors" && computerChoice === "paper" ||
-        playerChoice === "paper" && computerChoice === "rock") {
+// Logic for SinglePlayer and Multiplayer Winner
+function determineWinner(choice1, choice2) {
+    if (gameMode === 'multiPlayer') {
+        playerChoice = choice1;
+        opponentChoice = choice2;
+    }
+    if (playerChoice === "rock" && opponentChoice === "scissors" ||
+        playerChoice === "scissors" && opponentChoice === "paper" ||
+        playerChoice === "paper" && opponentChoice === "rock") {
         winner.classList.toggle("hidden");
         // console.log("Player 1 Wins");
-    } else if (playerChoice === computerChoice) {
+    } else if (playerChoice === opponentChoice) {
         tie.classList.toggle("hidden");
         // console.log("It's a tie!")
     } else {
@@ -139,13 +151,13 @@ function determineWinner() {
         // console.log("Player 2 wins");
     }
     console.log(playerChoice);
-    console.log(computerChoice);
+    console.log(opponentChoice);
 }
 
 function resetDefaults() {
     playerIcon.classList.remove(`fa-hand-${playerChoice}`);
-    computerIcon.classList.remove(`fa-hand-${computerChoice}`);
-    computerChoice = "";
+    opponentIcon.classList.remove(`fa-hand-${opponentChoice}`);
+    opponentChoice = "";
     playerChoice = "";
 }
 
@@ -192,7 +204,6 @@ function startMultiplayer() {
         if (parseInt(num) === playerNum) {
             document.querySelector(`${player}-panel`).classList.toggle('active');
             document.querySelector(`${player}-player-choose`).classList.toggle('hidden');
-
         }
 
         console.log(`player: ${player}`);
@@ -202,10 +213,13 @@ function startMultiplayer() {
     makeChoice.addEventListener('click', (e) => {
         console.log('click');
         const isButton = e.target.nodeName === 'BUTTON';
+
         if (!isButton) {
             return;
         }
-        playMultiplayerGame(socket, e.target.id);
+        console.log(e.target.id);
+        playerChoice1 = e.target.id;
+        playMultiplayerGame(socket, playerChoice1);
 
     });
 
@@ -216,7 +230,8 @@ function startMultiplayer() {
         if (!isButton) {
             return;
         }
-        playMultiplayerGame(socket, e.target.id);
+        playerChoice2 = e.target.id;
+        playMultiplayerGame(socket, playerChoice2);
 
     });
 
@@ -229,12 +244,7 @@ function startMultiplayer() {
         }
     });
 
-    //Choice received
-    // socket.on('choice-received', id => {
-
-    // })
-
-    //Check player status
+    //Check player +status
     socket.on('check-players', players => {
         players.forEach((p, i) => {
             if (p.connected) {
@@ -247,24 +257,47 @@ function startMultiplayer() {
                 }
             }
         })
-    })
+    });
+
+    //opponent receives choice
+    socket.on('choice-received', choice => {
+        console.log(`${playerNum} choice is: ${choice}`);
+        //player 1 num is 1 and player 2 num is 0
+        if (playerNum === 1) {
+            playerChoice1 = choice;
+            document.querySelector('.p1-icon').classList.add(`fa-hand-${choice}`);
+        } else if (playerNum === 0) {
+            playerChoice2 = choice;
+            document.querySelector('.p2-icon').classList.add(`fa-hand-${choice}`);
+        }
+
+        if (ready && opponentReady) {
+            console.log(`Player 1 choice is: ${playerChoice1} and Player 2 choice is: ${playerChoice2}`);
+            determineWinner(playerChoice1, playerChoice2);
+            socket.emit('determine-winner');
+        }
+    });
 
 }
+
+
 
 function playMultiplayerGame(socket, choice) {
     // toggleOptions();
     if (!ready) {
-        socket.emit('player-ready')
+        socket.emit('player-ready');
         ready = true;
-        playerReady(playerNum);
+        socket.emit('choice-received', choice);
+        playerReady(playerNum, choice);
     }
+
 }
 
-function playerReady(num) {
+function playerReady(num, choice) {
     let player = `.p${parseInt(num) + 1}`;
     if (parseInt(num) === playerNum) {
         document.querySelector(`${player}-player-choose`).classList.toggle('hidden');
+        document.querySelector(`${player}-icon`).classList.add(`fa-hand-${choice}`);
     }
     document.querySelector(`${player} .locked-choice`).classList.toggle('hidden');
-
 }

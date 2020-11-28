@@ -53,27 +53,30 @@ io.on('connection', (socket) => {
     });
 
     //on ready (player's made a choice)
-    socket.on('player-ready', () => {
+    socket.on('player-ready', (choice) => {
         socket.broadcast.emit('opponent-ready', playerIndex);
         connections[playerIndex] = true;
+        console.log(`${playerIndex} choice is ${choice}`);
+        console.log(`${playerIndex} is ready`);
     });
 
     //check player connections
     socket.on('check-players', () => {
         const players = [];
         for (const i in connections) {
-            connections[i] === null ? players.push({ connected: false, ready: false }) :
-                players.push({ connected: true, ready: connections[i] });
+            connections[i] === null ? players.push({ connected: false, ready: false, choice: "" }) :
+                players.push({ connected: true, ready: connections[i], choice: "" });
         }
         socket.emit('check-players', players);
+
     })
 
     //choice received
-    socket.on('choice-received', id => {
-        console.log(`Choice received from ${playerIndex}`, id);
+    socket.on('choice-received', choice => {
+        console.log(`Choice received from ${playerIndex}`, choice);
 
         //Emit choice to other player
-        socket.broadcast.emit('choice-received', id);
+        socket.broadcast.emit('choice-received', choice);
     });
 
     // Timeout connection (5 min limit until timeout)
