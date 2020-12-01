@@ -84,7 +84,7 @@ io.on('connection', (socket) => {
         console.log(`server: p1: ${playerChoice1} p2: ${playerChoice2}`);
         let winner = "";
         let tie = false;
-        //if playerChoices aren't equal figure out who won... otherwise it's a tie
+        //if playerChoices aren't equal figit commitgure out who won... otherwise it's a tie
         if (playerChoice1 !== playerChoice2) {
             if (playerChoice1 === "rock" && playerChoice2 === "scissors" ||
                 playerChoice1 === "scissors" && playerChoice2 === "paper" ||

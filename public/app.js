@@ -202,6 +202,10 @@ function startMultiplayer() {
         document.querySelector(`${player} .connected span`).classList.toggle('green');
         document.querySelector(`${player} .wait-connect`).classList.toggle('hidden');
 
+        if (!opponentIconFull.classList.contains('hidden') && !playerIconFull.classList.contains('hidden')) {
+            toggleOutcome();
+        }
+
 
         if (parseInt(num) === playerNum) {
             document.querySelector(`${player}-panel`).classList.toggle('active');
@@ -289,7 +293,7 @@ function startMultiplayer() {
         document.querySelector(`.p1-icon`).classList.add(`fa-hand-${playerChoice1}`);
         document.querySelector(`.p2-icon`).classList.add(`fa-hand-${playerChoice2}`);
         toggleOutcome();
-        toggleButtons();
+        mainMenu.classList.toggle("hidden");
         if (!tie) {
             //if winner = player1
             if (winner === 'player1') {
