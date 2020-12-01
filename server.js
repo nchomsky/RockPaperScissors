@@ -100,7 +100,7 @@ io.on('connection', (socket) => {
             console.log('its a tie');
         }
         //emitting the winner (or if it is a tie) to all clients
-        io.emit('determine-winner', winner, tie);
+        io.emit('determine-winner', winner, tie, playerChoice1, playerChoice2);
     });
 
     // Timeout connection (5 min limit until timeout)

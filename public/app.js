@@ -281,10 +281,13 @@ function startMultiplayer() {
         }
     });
 
-    socket.on('determine-winner', (winner, tie) => {
+    socket.on('determine-winner', (winner, tie, playerChoice1, playerChoice2) => {
         console.log(`determine winner: ${playerNum}`);
         document.querySelector('.p1 .locked-choice').classList.toggle('hidden');
         document.querySelector('.p2 .locked-choice').classList.toggle('hidden');
+        // adds playerchoice icon once winner is determined
+        document.querySelector(`.p1-icon`).classList.add(`fa-hand-${playerChoice1}`);
+        document.querySelector(`.p2-icon`).classList.add(`fa-hand-${playerChoice2}`);
         toggleOutcome();
         toggleButtons();
         if (!tie) {
@@ -332,7 +335,6 @@ function playerReady(num, choice) {
     let player = `.p${parseInt(num) + 1}`;
     if (parseInt(num) === playerNum) {
         document.querySelector(`${player}-player-choose`).classList.toggle('hidden');
-        document.querySelector(`${player}-icon`).classList.add(`fa-hand-${choice}`);
     }
     document.querySelector(`${player} .locked-choice`).classList.toggle('hidden');
 }
