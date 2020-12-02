@@ -6,7 +6,7 @@ Try it out [here](https://rock-paper-scissors-nc.herokuapp.com/)!
 ## Built Using:
 * JavaScript
 * Socket.io
-* Node.Js
+* Node.js
 * Express
 * HTML
 * CSS
@@ -20,4 +20,5 @@ Try it out [here](https://rock-paper-scissors-nc.herokuapp.com/)!
 ## Future Plans and Ideas
 * Allow players to play again in Multiplayer
 * Add rooms to choose from
+ * Allow users to create their own rooms
 * Maybe add a chat functionality
