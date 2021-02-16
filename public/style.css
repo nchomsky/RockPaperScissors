@@ -174,7 +174,7 @@ button:focus {
 }
 
 .game {
-  font-size: 1.5rem;
+  font-size: 2rem;
   display: block;
   margin: 1em auto;
   position: absolute;
@@ -275,7 +275,7 @@ button:focus {
 
 .outcome {
   top: 65%;
-  font-size: 3rem;
+  font-size: 3.2rem;
 }
 
 /**********************************************
