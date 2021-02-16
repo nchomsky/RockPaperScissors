@@ -29,9 +29,9 @@
     <script src="app.js" charset="utf-8" defer></script>
   </head>
   <body>
-    <div>
+    <div class="root">
       <h1 class="title">Rock, Paper, Scissors</h1>
-      <div class="wrapper clearfix">
+      <div class="container">
         <div class="player-1-panel active">
           <div class="player-name" id="name-1">You</div>
           <div class="player-choice">
@@ -55,6 +55,19 @@
           <div class="player-name" id="name-2">Opponent</div>
           <div class="opponent-choice">
             <i class="far fa-7x" id="opponent-icon"></i>
+          </div>
+          <!-- This player choose div is here to make styling easier -->
+          <div class="player-choose hidden">
+            <h2 class="choice-header">Make a Choice</h2>
+            <button class="choices-icon" onclick="playerMakeChoice('rock')">
+              <i class="far fa-hand-rock fa-2x"></i>
+            </button>
+            <button class="choices-icon" onclick="playerMakeChoice('paper')">
+              <i class="far fa-hand-paper fa-2x"></i>
+            </button>
+            <button class="choices-icon" onclick="playerMakeChoice('scissors')">
+              <i class="far fa-hand-scissors fa-2x"></i>
+            </button>
           </div>
         </div>
         <div>

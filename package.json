@@ -1,5 +1,5 @@
 {
-  "name": "RockPaperScissors",
+  "name": "rock_paper_scissors",
   "version": "1.0.0",
   "description": "Multiplayer Rock, Paper, Scissors Game",
   "main": "server.js",
