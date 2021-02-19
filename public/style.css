@@ -21,6 +21,30 @@ html {
   font-size: 62.5%;
 }
 
+@media only screen and (max-width: 1200px) {
+  html {
+    font-size: 56.25%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  html {
+    font-size: 40%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 28%;
+  }
+}
+
 body {
   box-sizing: border-box;
   font-family: Lato;
@@ -80,7 +104,7 @@ body {
 
 .container {
   min-height: 55rem;
-  width: 90rem;
+  min-width: 90rem;
   position: relative;
   border-radius: 0.9rem;
   background-color: #e5f4fb;
